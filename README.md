@@ -9,5 +9,5 @@
 ```
 nix run github:nix-community/nixos-anywhere -- --flake .#ulthc \
   --generate-hardware-config nixos-generate-config \
-  ./hosts/ulthc/hardware-configuration.nix ulthc
+  ./hosts/ulthc/hardware-configuration.nix --target-host <user>@<hostname>
 ```
