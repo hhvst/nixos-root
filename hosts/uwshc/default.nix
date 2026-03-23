@@ -5,12 +5,11 @@
 # NixOS-WSL specific options are documented on the NixOS-WSL repository:
 # https://github.com/nix-community/NixOS-WSL
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports = [
-    # include NixOS-WSL modules
-    <nixos-wsl/modules>
+    inputs.nixos-wsl.nixosModules.default
   ];
 
   wsl.enable = true;

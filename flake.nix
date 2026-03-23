@@ -11,9 +11,13 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, disko, home-manager, ... }: {
+  outputs = { nixpkgs, disko, home-manager, ... } @ inputs: {
     # nixos-anywhere --flake .#ulthc --generate-hardware-config nixos-generate-config ./hosts/ulthc/hardware-configuration.nix <hostname>
 
     
@@ -30,6 +34,9 @@
       uwshc = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [./hosts/uwshc];
+        specialArgs = {
+          inherit inputs;
+        };
       };
     };
   };
