@@ -1,9 +1,7 @@
 {
-  modulesPath,
-  lib,
   pkgs,
   ...
-}@args:
+}:
 {
   imports = [
     ../common/users/hcvst.nix
@@ -44,17 +42,17 @@
   services.openssh.enable = true;
 
   environment.systemPackages = with pkgs; [
-      bat
+    bat
     #   devenv
     #   eza
     #   fastfetch
     #   fzf
-      gh
+    gh
     #   glow
-      helix
+    helix
     #   lld
     #   mdcat
-      tree
+    tree
     #   wget
     #   zk
     # nvim
