@@ -18,9 +18,11 @@
       ls = "${pkgs.eza}/bin/eza";
       l = "${pkgs.eza}/bin/eza -lah --git";
       ll = "${pkgs.eza}/bin/eza -l";
+      lrt = "${pkgs.eza}/bin/eza -l -snew";
       la = "${pkgs.eza}/bin/eza -a";
       lt = "${pkgs.eza}/bin/eza --tree";
       lla = "${pkgs.eza}/bin/eza -la";
+      nhos = "${pkgs.nh}/bin/nh os switch";
     };
   };
 
