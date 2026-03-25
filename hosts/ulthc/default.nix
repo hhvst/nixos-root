@@ -9,7 +9,6 @@
     ./disko-config.nix
     ./hardware-configuration.nix 
     ./sway-requirements.nix
-    inputs.disko.nixosModules.disko
   ];
 
   boot.loader.grub = {
