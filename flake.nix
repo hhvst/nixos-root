@@ -35,12 +35,13 @@
             inherit inputs;
           };
         };
-      };
-      uwshc = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [./hosts/uwshc];
-        specialArgs = {
-          inherit inputs;
+        uwshc = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [ ./hosts/uwshc ];
+          specialArgs = {
+            inherit inputs;
+          };
+        };
         ultkv = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [ ./hosts/ultkv ];
