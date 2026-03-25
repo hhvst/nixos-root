@@ -39,15 +39,15 @@
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.displayManager.defaultSession = "xfce";
+  services.desktopManager.gnome.enable = true;
   services.xserver.desktopManager.xfce.enable = true;
-  services.xserver.displayManager.defaultSession = "xfce";
 
   # Configure keymap in X11
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "za";
-    xkbVariant = "";
+    variant = "";
   };
 
   # services.xserver.videoDrivers = [ "intel" ];
@@ -58,8 +58,8 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  # error to keep this sound.enable = true;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
