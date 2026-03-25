@@ -2,6 +2,7 @@
 
 {
   inputs,
+  hostname,
   pkgs,
   ...
 }:
@@ -17,7 +18,7 @@
   wsl.defaultUser = "hcvst";
 
   networking = {
-    hostName = "uwshc";
+    hostName = hostname;
     useDHCP = true;
   };
 

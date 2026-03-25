@@ -1,5 +1,6 @@
 {
   inputs,
+  hostname,
   pkgs,
   ...
 }:
@@ -19,7 +20,7 @@
   };
 
   networking = {
-    hostName = "ulthc";
+    hostName = hostname;
     useDHCP = true;
   };
 

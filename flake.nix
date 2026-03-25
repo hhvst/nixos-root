@@ -3,6 +3,11 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    # comin provides GitOps for Nixos
+    comin = {
+      url = "github:nlewo/comin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -15,44 +20,30 @@
       url = "github:nix-community/NixOS-WSL/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    comin = {
-      url = "github:nlewo/comin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
     {
       nixpkgs,
-      disko,
-      home-manager,
       ...
     }@inputs:
+    let
+      mkHost =
+        hostname:
+        nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [ ./hosts/${hostname} ];
+          specialArgs = {
+            inherit inputs hostname;
+          };
+        };
+    in
     {
       # nixos-anywhere --flake .#ulthc --generate-hardware-config nixos-generate-config ./hosts/ulthc/hardware-configuration.nix <hostname>
-
       nixosConfigurations = {
-        ulthc = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [ ./hosts/ulthc ];
-          specialArgs = {
-            inherit inputs;
-          };
-        };
-        uwshc = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [ ./hosts/uwshc ];
-          specialArgs = {
-            inherit inputs;
-          };
-        };
-        ultkv = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [ ./hosts/ultkv ];
-          specialArgs = {
-            inherit inputs;
-          };
-        };
+        ulthc = mkHost "ulthc";
+        uwshc = mkHost "uwshc";
+        ultkv = mkHost "ultkv";
       };
     };
 }
