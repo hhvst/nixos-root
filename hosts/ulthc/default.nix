@@ -5,6 +5,7 @@
 }:
 {
   imports = [
+    ../common/optional/comin.nix
     ../common/users/hcvst.nix
     ./disko-config.nix
     ./hardware-configuration.nix 

@@ -9,6 +9,7 @@
 {
   imports = [
     inputs.nixos-wsl.nixosModules.default
+    ../common/optional/comin.nix
     ../common/users/hcvst.nix
   ];
 
