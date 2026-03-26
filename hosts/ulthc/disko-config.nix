@@ -1,9 +1,7 @@
-# Example to create a bios compatible gpt partition
 { inputs, lib, ... }:
 {
-  imports = [
-    inputs.disko.nixosModules.disko
-  ];
+  imports = [ inputs.disko.nixosModules.disko ];
+
   disko.devices = {
     disk.disk1 = {
       device = lib.mkDefault "/dev/nvme0n1";
@@ -11,14 +9,9 @@
       content = {
         type = "gpt";
         partitions = {
-          boot = {
-            name = "boot";
-            size = "1M";
-            type = "EF02";
-          };
           esp = {
             name = "ESP";
-            size = "500M";
+            size = "512M";
             type = "EF00";
             content = {
               type = "filesystem";
@@ -26,32 +19,61 @@
               mountpoint = "/boot";
             };
           };
-          root = {
-            name = "root";
+          zfs = {
+            name = "zfs";
             size = "100%";
             content = {
-              type = "lvm_pv";
-              vg = "pool";
+              type = "zfs";
+              pool = "rpool";
             };
           };
         };
       };
     };
-    lvm_vg = {
-      pool = {
-        type = "lvm_vg";
-        lvs = {
-          root = {
-            size = "100%FREE";
-            content = {
-              type = "filesystem";
-              format = "ext4";
-              mountpoint = "/";
-              mountOptions = [
-                "defaults"
-              ];
-            };
+
+    zpool.rpool = {
+      type = "zpool";
+      rootFsOptions = {
+        mountpoint = "none";
+        canmount = "off";
+        compression = "zstd";
+        encryption = "aes-256-gcm";
+        keyformat = "passphrase";
+        keylocation = "prompt";
+      };
+      options = {
+        ashift = "12";
+        autotrim = "on";
+      };
+
+      datasets = {
+        "local/root" = {
+          type = "zfs_fs";
+          options.mountpoint = "legacy";
+          mountpoint = "/";
+          postCreateHook = "zfs snapshot rpool/local/root@blank";
+        };
+
+        "local/nix" = {
+          type = "zfs_fs";
+          options.mountpoint = "legacy";
+          mountpoint = "/nix";
+        };
+
+        "local/home" = {
+          type = "zfs_fs";
+          options.mountpoint = "legacy";
+          mountpoint = "/home";
+          postCreateHook = "zfs snapshot rpool/local/home@blank";
+        };
+
+        "safe/persist" = {
+          type = "zfs_fs";
+          options = {
+            mountpoint = "legacy";
+            "com.sun:auto-snapshot" = "true";
           };
+          mountpoint = "/persist";
         };
       };
     };

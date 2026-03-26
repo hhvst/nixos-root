@@ -9,7 +9,9 @@
     ../common/optional/comin.nix
     ../common/users/hcvst.nix
     ./disko-config.nix
-    ./hardware-configuration.nix 
+    ./hardware-configuration.nix
+    ./zfs.nix
+    ./impermanence.nix
     # ./sway-requirements.nix
     ./niri-requirements.nix
   ];
@@ -20,6 +22,7 @@
   };
 
   networking = {
+    hostId = "ECA40995";
     hostName = hostname;
     useDHCP = true;
   };
