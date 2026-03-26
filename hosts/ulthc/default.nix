@@ -67,6 +67,9 @@
     #   zk
     # nvim
     nixfmt
+    age
+    ssh-to-age
+    sops
   ];
 
   # ssh-keygen -y -f ~/.ssh/id_ed25519
