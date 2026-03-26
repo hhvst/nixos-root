@@ -12,14 +12,18 @@
     ./hardware-configuration.nix
     ./zfs.nix
     ./impermanence.nix
+    ./sops.nix
     # ./sway-requirements.nix
     ./niri-requirements.nix
   ];
 
-  boot.loader.grub = {
-    efiSupport = true;
-    efiInstallAsRemovable = true;
-  };
+  # boot.loader.grub = {
+  #   efiSupport = true;
+  #   efiInstallAsRemovable = true;
+  # };
+
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   networking = {
     hostId = "ECA40995";
