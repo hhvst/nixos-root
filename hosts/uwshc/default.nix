@@ -13,6 +13,7 @@
     ../common/global
     ../common/optional/comin.nix
     ../common/users/hcvst.nix
+    ../common/users/hhvst.nix
   ];
 
   wsl.enable = true;
