@@ -2,20 +2,21 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, hostname, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
+      inputs.home-manager.nixosModules.home-manager
       ./hardware-configuration.nix
-      <home-manager/nixos>
+      ../common/users/hhvst.nix
     ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nebula"; # Define your hostname.
+  networking.hostName = hostname; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -52,7 +53,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
+  # sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -80,55 +81,55 @@
     ];
   };
 
-  users.users.hhvst = {
-    isNormalUser = true;
-    description = "Hans Heinrich von Stockhausen";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      blockbench
-      firefox
-      prismlauncher
-      stone-kingdoms
-      lenmus
-      widelands
-      libreoffice-qt
-    #  thunderbird
-    ];
-  };
+  # users.users.hhvst = {
+  #   isNormalUser = true;
+  #   description = "Hans Heinrich von Stockhausen";
+  #   extraGroups = [ "networkmanager" "wheel" ];
+  #   packages = with pkgs; [
+  #     blockbench
+  #     firefox
+  #     prismlauncher
+  #     stone-kingdoms
+  #     lenmus
+  #     widelands
+  #     libreoffice-qt
+  #   #  thunderbird
+  #   ];
+  # };
 
-  home-manager.users.hhvst = { pkgs, ... }: {
-    home.packages = [ pkgs.httpie ];
-    programs.zsh.enable = true;
+  # home-manager.users.hhvst = { pkgs, ... }: {
+  #   home.packages = [ pkgs.httpie ];
+  #   programs.zsh.enable = true;
 
-    # The state version is required and should stay at the version you
-    # originally installed.
-    home.stateVersion = "23.11";
-  };
+  #   # The state version is required and should stay at the version you
+  #   # originally installed.
+  #   home.stateVersion = "23.11";
+  # };
 
-  users.users.lena = {
-    isNormalUser = true;
-    description = "Lena von Stockhausen";
-    extraGroups = [ "networkmanager" ];
-    packages = with pkgs; [
-      blockbench
-      firefox
-      prismlauncher
-      stone-kingdoms
-      lenmus
-      widelands
-      libreoffice-qt
-    #  thunderbird
-    ];
-  };
+  # users.users.lena = {
+  #   isNormalUser = true;
+  #   description = "Lena von Stockhausen";
+  #   extraGroups = [ "networkmanager" ];
+  #   packages = with pkgs; [
+  #     blockbench
+  #     firefox
+  #     prismlauncher
+  #     stone-kingdoms
+  #     lenmus
+  #     widelands
+  #     libreoffice-qt
+  #   #  thunderbird
+  #   ];
+  # };
 
-  home-manager.users.lena = { pkgs, ... }: {
-    home.packages = [ ];
-    programs.zsh.enable = true;
+  # home-manager.users.lena = { pkgs, ... }: {
+  #   home.packages = [ ];
+  #   programs.zsh.enable = true;
 
-    # The state version is required and should stay at the version you
-    # originally installed.
-    home.stateVersion = "23.11";
-  };
+  #   # The state version is required and should stay at the version you
+  #   # originally installed.
+  #   home.stateVersion = "23.11";
+  # };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

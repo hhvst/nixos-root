@@ -50,6 +50,8 @@
         ulthc = mkHost "ulthc";
         uwshc = mkHost "uwshc";
         ultkv = mkHost "ultkv";
+        ummhc = mkHost "ummhc";
+        #sgihc = mkHost "sgihc";
       };
     };
 }
