@@ -1,13 +1,13 @@
 { config, ... }:
 {
-  
+
   imports = [
     ../../common/optional/starship.nix
   ];
 
   home.username = "hhvst";
   home.homeDirectory = "/home/${config.home.username}";
-  home.stateVersion = "23.11";
+  home.stateVersion = "25.11";
 
   programs.zsh.enable = true;
 }
