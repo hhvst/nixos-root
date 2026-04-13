@@ -49,6 +49,7 @@
       nixosConfigurations = {
         ulthc = mkHost "ulthc";
         uwshc = mkHost "uwshc";
+        uwshh = mkHost "uwshh";
         ultkv = mkHost "ultkv";
         ummhc = mkHost "ummhc";
         #sgihc = mkHost "sgihc";
